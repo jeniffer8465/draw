@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+  <style><script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script></style>
+  <link rel="stylesheet" href="style.css">
+</head>
+  
+<body>
+<div> <canvas id="cont" width="400" height="600"></canvas> 
+  <input type="button" name="" id="btn" value="清空画板"> 
+  <span>线条宽度</span> 
+  <select id="sel"> 
+    <option value="1">1</option> <option value="2">2</option> 
+    <option value="3">3</option> <option value="4">4</option> 
+    <option value="5">5</option> <option value="6">6</option> 
+    <option value="7">7</option> <option value="8">8</option> 
+    <option value="9">9</option> <option value="10">10</option> </select> <span>颜色</span>
+  <input type="color" id="col">
+  </div>
+  <script>
+var myCanvas = document.getElementById("cont");
+var txt = myCanvas.getContext("2d");
+var btn = document.getElementById("btn");
+var sel = document.getElementById("sel");
+myCanvas.onmousedown = function(event) {
+    var eve = window.event || event;
+    x = eve.clientX;
+    y = eve.clientY;
+    txt.beginPath();
+    txt.moveTo(x, y);
+    txt.lineWidth = sel.value;
+
+    myCanvas.onmousemove = function(event) {
+        var eve = window.event || event;
+        mx = eve.clientX;
+        my = eve.clientY;
+        txt.lineTo(mx, my);
+        txt.strokeStyle = $(col).val();
+        txt.stroke();
+    }
+}
+myCanvas.onmouseup = function(event) {
+    var eve = window.event || event;
+    myCanvas.onmousemove = null;
+}
+btn.onclick = function() {
+    txt.clearRect(0, 0, 400, 600);
+}
+</script>
+</script>
+</body>
+</html>
